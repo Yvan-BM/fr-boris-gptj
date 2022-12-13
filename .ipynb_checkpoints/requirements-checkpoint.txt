@@ -1,0 +1,6 @@
+torch
+transformers
+Flask
+bitsandbytes
+accelerate
+tensorboard
