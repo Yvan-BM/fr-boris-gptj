@@ -19,11 +19,12 @@ def generate():
 
         # Parse out your arguments
         prompt = request.form.get('prompt')
+        max_new_tokens = request.form.get('max_new_tokens')
         
         if prompt == None:
             return {'message': "No prompt provided"}
         
-        result = usr_src.inference(prompt.strip())
+        result = usr_src.inference(prompt.strip(), int(max_new_tokens))
 
         # Return the results as a dictionary
         return result

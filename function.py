@@ -22,7 +22,7 @@ def init():
         model.to(device)
         
 
-def inference(prompt):
+def inference(prompt, max_new_tokens):
     global model
     global tokenizer
 
@@ -34,9 +34,10 @@ def inference(prompt):
     # Tokenize input
     input_tokens = tokenizer(prompt, return_tensors='pt')
     input_tokens = {key: value.to(device) for key, value in input_tokens.items()}
+    max_length = len(prompt.split(" ")) + max_new_tokens
 
     # Run the model
-    output = model.generate(**input_tokens, min_length=100, max_length=100, do_sample=True)
+    output = model.generate(**input_tokens, min_length=max_length, max_length=max_length, do_sample=True)
 
     # Decode output token
     output_text = tokenizer.decode(output[0], skip_special_tokens=True)
