@@ -6,13 +6,13 @@ Before going through the use of this repo, you have to make sure gpu set in your
 
 To run this repository, follow the steps below:
 
-1. first you have to clone the repo.
+1. first you clone the repository.
 >git clone https://github.com/Yvan-BM/fr-boris-gptj.git
 
 2. move into the main directory
 >cd fr-boris-gptj
 
-3. Install all dependencies
+3. Install all dependencies (It is recommended to create a virtual environment before)
 >pip install -r requirements.txt 
 
 4. Now you can launch the flask server. For this you have two options.
