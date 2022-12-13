@@ -3,7 +3,8 @@ import time
 
 start = time.time()
 
-model_inputs = {'prompt': "Je suis un jeune"}
+model_inputs = {'prompt': "Je suis un jeune", 
+               'max_new_tokens': 50}
 
 res = requests.post('http://172.17.0.2:80/generate', data = model_inputs)
 
