@@ -2,24 +2,40 @@ import transformers
 import torch
 import convert
 
-transformers.models.gptj.modeling_gptj.GPTJBlock = convert.GPTJBlock
+
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+if device == "cuda:0":
+    transformers.models.gptj.modeling_gptj.GPTJBlock = convert.GPTJBlock
 
 def init():
     global model
     global tokenizer
     
-    print("Tokenizer loading on cpu...")
-    tokenizer = transformers.AutoTokenizer.from_pretrained("yvan237/cedille-GPT-J-6B-8bit")
-    print("done")
-
-    print("Model loading on cpu...")
-    model = convert.GPTJForCausalLM.from_pretrained("yvan237/cedille-GPT-J-6B-8bit")
-    print("done")
+    
+    if device == 'cpu':
+        print("Tokenizer loading on cpu...")
+        tokenizer = transformers.AutoTokenizer.from_pretrained("Cedille/fr-boris")
+        print("done")
+        print("Model loading on cpu...")
+        model = transformers.AutoModelForCausalLM.from_pretrained("Cedille/fr-boris")
+        print("done")
+    else:
+        print("Tokenizer loading on cpu...")
+        tokenizer = transformers.AutoTokenizer.from_pretrained("yvan237/cedille-GPT-J-6B-8bit")
+        print("done")
+        print("Model loading on cpu...")
+        model = convert.GPTJForCausalLM.from_pretrained("yvan237/cedille-GPT-J-6B-8bit")
+        print("done")
     
     if device == "cuda:0":
         print("Model passing on gpu...")
         model.to(device)
+    else:
+        print("You do not have gpu set in your environment")
+        
+    tokenizer.pad_token = tokenizer.eos_token
+    model.config.pad_token_id = cedille.config.eos_token_id
         
 
 def inference(prompt, max_new_tokens):
