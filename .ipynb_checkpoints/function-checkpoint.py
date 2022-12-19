@@ -35,7 +35,7 @@ def init():
         print("You do not have gpu set in your environment")
         
     tokenizer.pad_token = tokenizer.eos_token
-    model.config.pad_token_id = cedille.config.eos_token_id
+    model.config.pad_token_id = model.config.eos_token_id
         
 
 def inference(prompt, max_new_tokens):
