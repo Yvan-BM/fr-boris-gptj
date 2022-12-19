@@ -14,12 +14,12 @@ def home():
 
 @app.route('/generate', methods=['POST'])
 def generate():
-    
+    request_data = request.get_json()
     if request.method == 'POST':
 
         # Parse out your arguments
-        prompt = request.form.get('prompt')
-        max_new_tokens = request.form.get('max_new_tokens')
+        prompt = request_data['prompt']
+        max_new_tokens = request_data['max_new_tokens']
         
         if prompt == None:
             return {'message': "No prompt provided"}
